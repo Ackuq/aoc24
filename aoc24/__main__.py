@@ -30,5 +30,5 @@ if __name__ == "__main__":
 
     input = get_input(day, example, strip)
 
-    module = import_module(f"aoc23.day{day}.solution")
+    module = import_module(f"aoc24.day{day}.solution")
     module.main(input)
