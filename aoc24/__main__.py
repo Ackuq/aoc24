@@ -2,7 +2,7 @@ import argparse
 from importlib import import_module
 from typing import Optional
 
-from aoc23.utils import get_input
+from aoc24.utils import get_input
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
