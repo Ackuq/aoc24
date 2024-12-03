@@ -1,20 +1,14 @@
 import re
 
-mul_regex = re.compile(r"^mul\((\d+),(\d+)\)")
+mul_regex = re.compile(r"mul\((\d+),(\d+)\)")
 
 
 def part1(input: list[str]) -> None:
     sum = 0
     for line in input:
-        while line:
-            match = mul_regex.match(line)
-            if match:
-                a, b = map(int, match.groups())
-                sum += a * b
-                line = line[match.end() :]
-                continue
-
-            line = line[1:]
+        matches = mul_regex.findall(line)
+        for a, b in matches:
+            sum += int(a) * int(b)
 
     print("Part 1:", sum)
 
@@ -22,6 +16,7 @@ def part1(input: list[str]) -> None:
 def part2(input: list[str]) -> None:
     sum = 0
     mul_enabled = True
+
     for line in input:
         while line:
             if line.startswith("do()"):
