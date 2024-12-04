@@ -37,6 +37,16 @@ def part2(lines: List[str]) -> None:
     def find_xmas() -> int:
         missing_letters = set(["M", "S"])
         count = 0
+        direction_pairs = [
+            (
+                (-1, 1),
+                (1, -1),
+            ),
+            (
+                (1, 1),
+                (-1, -1),
+            ),
+        ]
         for i in range(1, len(lines) - 1):
             line = lines[i]
             for j in range(1, len(line) - 1):
@@ -44,14 +54,10 @@ def part2(lines: List[str]) -> None:
                 if char != "A":
                     continue
 
-                up_right = lines[i - 1][j + 1]
-                down_right = lines[i + 1][j + 1]
-                down_left = lines[i + 1][j - 1]
-                up_left = lines[i - 1][j - 1]
-
-                if (
-                    set([up_left, down_right]) == missing_letters
-                    and set([up_right, down_left]) == missing_letters
+                if all(
+                    set([lines[i + di1][j + dj1], lines[i + di2][j + dj2]])
+                    == missing_letters
+                    for (di1, dj1), (di2, dj2) in direction_pairs
                 ):
                     count += 1
 
