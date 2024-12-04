@@ -4,62 +4,29 @@ from typing import List
 def part1(lines: List[str]) -> None:
     def find_xmas() -> int:
         count = 0
+        directions = [
+            (-1, 0),
+            (-1, 1),
+            (0, 1),
+            (1, 1),
+            (1, 0),
+            (1, -1),
+            (0, -1),
+            (-1, -1),
+        ]
         for i, line in enumerate(lines):
             for j, char in enumerate(line):
                 if char != "X":
                     continue
 
-                up = (
-                    "".join(lines[i - k][j] for k in range(4)) if i - 3 >= 0 else "----"
-                )
-                up_right = (
-                    "".join(lines[i - k][j + k] for k in range(4))
-                    if i - 3 >= 0 and j + 4 <= len(line)
-                    else "----"
-                )
-                right = line[j : j + 4] if j + 4 <= len(line) else "----"
-
-                down_right = (
-                    "".join(lines[i + k][j + k] for k in range(4))
-                    if i + 4 <= len(lines) and j + 4 <= len(line)
-                    else "----"
-                )
-                down = (
-                    "".join(lines[i + k][j] for k in range(4))
-                    if i + 4 <= len(lines)
-                    else "----"
-                )
-                down_left = (
-                    "".join(lines[i + k][j - k] for k in range(4))
-                    if i + 4 <= len(lines) and j - 3 >= 0
-                    else "----"
-                )
-                left = (
-                    "".join(lines[i][j - k] for k in range(4)) if j - 3 >= 0 else "----"
-                )
-                up_left = (
-                    "".join(lines[i - k][j - k] for k in range(4))
-                    if i - 3 >= 0 and j - 3 >= 0
-                    else "----"
-                )
-                # print(up, up_right, right, down_right, down, down_left, left, up_left)
-
-                count += len(
-                    [
-                        x
-                        for x in [
-                            up,
-                            up_right,
-                            right,
-                            down_right,
-                            down,
-                            down_left,
-                            left,
-                            up_left,
-                        ]
-                        if x == "XMAS"
-                    ]
-                )
+                for di, dj in directions:
+                    if all(
+                        0 <= i + k * di < len(lines)
+                        and 0 <= j + k * dj < len(line)
+                        and lines[i + k * di][j + k * dj] == "XMAS"[k]
+                        for k in range(4)
+                    ):
+                        count += 1
 
         return count
 
