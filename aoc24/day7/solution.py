@@ -25,6 +25,7 @@ def is_solvable(
         return answer in acc
 
     acc = {op(prev, digits[0]) for prev in acc for op in operators}
+    acc = {num for num in acc if num <= answer}
 
     return is_solvable(answer, digits[1:], operators, acc)
 
