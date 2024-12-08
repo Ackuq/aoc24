@@ -2,7 +2,6 @@ import itertools
 
 Grid = list[list[str]]
 Coord = tuple[int, int]
-CoordWithDirection = tuple[Coord, Coord]
 CharacterLocation = dict[str, set[Coord]]
 
 
@@ -28,28 +27,6 @@ def is_inside(grid: Grid, pos: Coord) -> bool:
     return 0 <= x < len(grid[0]) and 0 <= y < len(grid)
 
 
-def get_antinodes(grid: Grid, pos1: Coord, pos2: Coord) -> list[CoordWithDirection]:
-    x1, y1 = pos1
-    x2, y2 = pos2
-    antinodes = list[CoordWithDirection]()
-
-    dx, dy = abs(x2 - x1), abs(y2 - y1)
-
-    dx1 = dx if x1 > x2 else -dx
-    dy1 = dy if y1 > y2 else -dy
-    antinode1 = (x1 + dx1, y1 + dy1)
-    if is_inside(grid, antinode1):
-        antinodes.append((antinode1, (dx1, dy1)))
-
-    dx2 = dx if x2 > x1 else -dx
-    dy2 = dy if y2 > y1 else -dy
-    antinode2 = (x2 + dx2, y2 + dy2)
-    if is_inside(grid, antinode2):
-        antinodes.append((antinode2, (dx2, dy2)))
-
-    return antinodes
-
-
 def part1(grid: Grid) -> None:
     character_locations = get_character_locations(grid)
 
@@ -59,7 +36,13 @@ def part1(grid: Grid) -> None:
         combinations = itertools.combinations(locations, 2)
 
         for (x1, y1), (x2, y2) in combinations:
-            antinodes |= {coord for coord, _ in get_antinodes(grid, (x1, y1), (x2, y2))}
+            antinode1 = (x1 + (x1 - x2), y1 + (y1 - y2))
+            if is_inside(grid, antinode1):
+                antinodes.add(antinode1)
+
+            antinode2 = (x2 + (x2 - x1), y2 + (y2 - y1))
+            if is_inside(grid, antinode2):
+                antinodes.add(antinode1)
 
     print("Part 1:", len(antinodes))
 
@@ -72,18 +55,17 @@ def part2(grid: Grid) -> None:
         combinations = itertools.combinations(locations, 2)
 
         for (x1, y1), (x2, y2) in combinations:
-            antinodes |= {(x1, y1), (x2, y2)}
+            dx, dy = x2 - x1, y2 - y1
 
-            antinodes_with_direction = get_antinodes(grid, (x1, y1), (x2, y2))
+            i = 1
+            while is_inside(grid, (x1 + dx * i, y1 + dy * i)):
+                antinodes.add((x1 + dx * i, y1 + dy * i))
+                i += 1
 
-            while antinodes_with_direction:
-                antinodes |= {coord for coord, _ in antinodes_with_direction}
-
-                antinodes_with_direction: list[CoordWithDirection] = [
-                    ((x + dx, y + dy), (dx, dy))
-                    for (x, y), (dx, dy) in antinodes_with_direction
-                    if is_inside(grid, (x + dx, y + dy))
-                ]
+            i = 1
+            while is_inside(grid, (x2 - dx * i, y2 - dy * i)):
+                antinodes.add((x2 - dx * i, y2 - dy * i))
+                i += 1
 
     print("Part 2:", len(antinodes))
 
