@@ -1,14 +1,11 @@
-from typing import List
-
-
-def part1(lines: List[str]) -> None:
+def part1(lines: list[str]) -> None:
     pass
 
 
-def part2(lines: List[str]) -> None:
+def part2(lines: list[str]) -> None:
     pass
 
 
-def main(lines: List[str]) -> None:
+def main(lines: list[str]) -> None:
     part1(lines)
     part2(lines)

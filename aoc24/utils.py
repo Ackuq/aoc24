@@ -1,14 +1,13 @@
 import os
-from typing import List, Optional
 
 directory = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_input(
     day: int,
-    example: Optional[int] = None,
+    example: int | None = None,
     strip: bool = True,
-) -> List[str]:
+) -> list[str]:
     day_directory = f"{directory}/day{day}"
 
     filename = (

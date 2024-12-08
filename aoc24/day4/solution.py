@@ -1,7 +1,4 @@
-from typing import List
-
-
-def part1(lines: List[str]) -> None:
+def part1(lines: list[str]) -> None:
     def find_xmas() -> int:
         count = 0
         directions = [
@@ -33,7 +30,7 @@ def part1(lines: List[str]) -> None:
     print("Part 1:", find_xmas())
 
 
-def part2(lines: List[str]) -> None:
+def part2(lines: list[str]) -> None:
     def find_xmas() -> int:
         missing_letters = set(["M", "S"])
         count = 0
@@ -66,7 +63,7 @@ def part2(lines: List[str]) -> None:
     print("Part 2:", find_xmas())
 
 
-def main(lines: List[str]) -> None:
+def main(lines: list[str]) -> None:
     striped = [line.strip() for line in lines]
     part1(striped)
     part2(striped)

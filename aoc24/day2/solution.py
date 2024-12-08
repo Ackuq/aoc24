@@ -1,9 +1,7 @@
-from typing import List
-
-Input = List[List[int]]
+Input = list[list[int]]
 
 
-def is_safe(report: List[int]) -> bool:
+def is_safe(report: list[int]) -> bool:
     parity = 0
     previous = report[0]
 
@@ -28,7 +26,7 @@ def part1(input: Input) -> None:
 
 
 def part2(input: Input) -> None:
-    def check_report(report: List[int]) -> bool:
+    def check_report(report: list[int]) -> bool:
         if is_safe(report):
             return True
 
@@ -42,11 +40,11 @@ def part2(input: Input) -> None:
     print("Part 2:", len(safe_reports))
 
 
-def parse_input(lines: List[str]) -> Input:
+def parse_input(lines: list[str]) -> Input:
     return [[int(x) for x in line.split()] for line in lines]
 
 
-def main(lines: List[str]) -> None:
+def main(lines: list[str]) -> None:
     input = parse_input(lines)
     part1(input)
     part2(input)

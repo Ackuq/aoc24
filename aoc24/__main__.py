@@ -1,6 +1,5 @@
 import argparse
 from importlib import import_module
-from typing import Optional
 
 from aoc24.utils import get_input
 
@@ -25,7 +24,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     day: int = args.day
-    example: Optional[int] = args.example
+    example: int | None = args.example
     strip: bool = args.strip
 
     input = get_input(day, example, strip)

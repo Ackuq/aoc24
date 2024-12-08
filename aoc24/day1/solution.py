@@ -1,10 +1,9 @@
 from collections import Counter
-from typing import List, Tuple
 
-Input = List[Tuple[int, int]]
+Input = list[tuple[int, int]]
 
 
-def parse_input(lines: List[str]) -> Input:
+def parse_input(lines: list[str]) -> Input:
     return [(int(line.split()[0]), int(line.split()[1])) for line in lines]
 
 
@@ -26,7 +25,7 @@ def part2(lines: Input) -> None:
     print("Part 2:", similarity_score)
 
 
-def main(lines: List[str]) -> None:
+def main(lines: list[str]) -> None:
     input = parse_input(lines)
     part1(input)
     part2(input)
