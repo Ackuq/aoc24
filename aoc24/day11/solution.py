@@ -2,9 +2,9 @@ from typing import Counter
 
 
 def blink(stones: list[int], blinks: int) -> int:
-    counter = Counter(stones)
+    counter = Counter[int](stones)
     for _ in range(blinks):
-        new_counter = Counter()
+        new_counter = Counter[int]()
         for stone, count in counter.items():
             if stone == 0:
                 new_counter[1] += count
