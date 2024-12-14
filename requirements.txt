@@ -3,3 +3,4 @@ black==24.10.0
 isort==5.13.2
 tqdm==4.67.1
 types-tqdm==4.67.0.20241119
+pillow==11.0.0
