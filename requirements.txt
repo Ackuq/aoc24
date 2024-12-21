@@ -4,3 +4,4 @@ isort==5.13.2
 tqdm==4.67.1
 types-tqdm==4.67.0.20241119
 pillow==11.0.0
+frozendict==2.4.6
